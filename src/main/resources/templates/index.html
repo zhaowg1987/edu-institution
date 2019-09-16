@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/templates::common_head">
+</head>
+<body class="app ">
+<div id="spinner"></div>
+<div id="app">
+    <div class="main-wrapper">
+        <!--公共导航和顶部部分-->
+        <div th:replace="common/templates::common_top_nav"></div>
+        <!--页面内容-->
+        <div class="app-content">
+            <section class="section">
+                <!--页面导航部分-->
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/index" class="text-muted">首页</a></li>
+                </ol>
+                <!--具体内容-->
+                <div class="row">
+                    <div class="col-lg-12 col-xl-8 col-md-12 col-12 col-sm-12">
+                        <div class="card">
+                            <div class="pt-0 pb-0 pl-3 pr-3 card-body">
+                                <div class="row">
+                                    <!--天气预报数据-->
+                                    <!--http://api.map.baidu.com/telematics/v3/weather?location=北京&output=json&ak=-->
+                                    <div class="col-xs-12 col-lg-5 cover-image weather-radius text-center position-relative transparent"
+                                         data-image-src="/static/assets/img/weather.jpg">
+                                        <div class="weather-shade">
+                                            <i class="wi wi-day-sleet text-white"></i>
+                                        </div>
+                                        <div class="card-body mt-5 pt-5">
+                                            <i class="vl_weather-day-rain text-light  mt-5 pt-5 d-block"></i>
+                                        </div>
+                                        <div class="bg-transparent border-0 text-light  pt-4">
+                                            <h3 class="weight300" id="which_day_of_the_week">Sunny Day</h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-7 widgetb p-0">
+                                        <div class="card-body p-4">
+                                            <h4 class="mb-0">
+                                                <span id="current_city">MONDAY</span>
+                                               <!-- <br/>
+                                                <span class="text-muted h5" id="current_date"> 22  October</span>-->
+                                                <br/>
+                                                <span class="text-muted h5" id="current_pm25"> 22  October</span>
+                                            </h4>
+                                            <div class="fs-45 text-primary pt-4 " id="current_temperature">
+                                                32<sup>o</sup>
+                                                <span class="h3 ">Sunny</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-white text-center ">
+                                            <div class="row" id="future_weather">
+                                                <div class="col-sm-4 col-4 mt-2 pb-2">
+                                                    <h6 class="text-muted mb-3">TUE</h6>
+                                                    <i class="fe fe-cloud-rain"></i>
+                                                    <p class="mb-0 text-muted">18<sup>o</sup>c</p>
+                                                </div>
+                                                <div class="col-sm-4 col-4 mt-2 pb-2">
+                                                    <h6 class="text-muted mb-3">WED</h6>
+                                                    <i class="fe fe-cloud"></i>
+                                                    <p class="mb-0 text-muted">22<sup>o</sup>c</p>
+                                                </div>
+                                                <div class="col-sm-4 col-4 mt-2 pb-2">
+                                                    <h6 class="text-muted mb-3">THU</h6>
+                                                    <i class="fe fe-cloud"></i>
+                                                    <p class="mb-0 text-muted">15<sup>o</sup>c</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-xl-4 col-md-12 col-12 col-sm-12">
+                        <div class="card">
+                            <div id="calendar-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!--底部部分-->
+        <footer th:replace="common/templates::common_footer"></footer>
+        <!--获取地理位置隐藏域-->
+        <script type="text/javascript" src="//api.map.baidu.com/getscript?v=2.0&ak=nI1itn8HlYLLUgmihyMGfoKeOyztYHlP&s=1">
+        </script>
+        <!--业务js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/js/bus/index.js')}"></script>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/templates::common_head">
+</head>
+<body class="app ">
+<div id="spinner"></div>
+<div id="app">
+    <div class="main-wrapper">
+        <!--公共导航和顶部部分-->
+        <div th:replace="common/templates::common_top_nav"></div>
+        <!--页面内容-->
+        <div class="app-content">
+            <section class="section">
+                <!--页面导航部分-->
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="/index" class="text-muted">首页</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">机构评分管理</li>
+                    <li class="breadcrumb-item active" aria-current="page">机构评分表</li>
+                </ol>
+                <!--具体内容-->
+                <div class="row">
+                    <div class="col-md">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>筛选条件</h4>
+                            </div>
+                            <div class="card-body">
+                                <form id="search_form" method="post">
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <label>机构名称</label>
+                                            <div class="input-group">
+                                                <input type="hidden" id="q_id"/>
+                                                <input type="text" class="form-control" data-provide="typeahead" autocomplete="off"
+                                                       maxlength="64" name="groupName" id="q_groupName" placeholder="请录入机构名称" />
+                                                <div id="close_clear_btn" class="input-group-append close_clear_btn">
+                                                    <span class="input-group-text">
+                                                        <i class="ion ion-close"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 offset-md-6 text-align-r">
+                                            <button type="button" onclick="queryData()" class="btn btn-primary">查询</button>
+                                            <button type="button" onclick="resetQueryData()" class="btn btn-primary">重置</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>机构评分结果</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><b>机构名称 :</b> <span id="s_group_name"></span></p>
+                                        <p><b>机构分值 :</b> <span id="s_group_score"></span></p>
+                                        <p><b>机构等级 :</b> <span id="s_group_level"></span></p>
+                                        <p><b>机构风险分析 :</b> <span id="s_group_risk"></span></p>
+                                        <p><b>最后更新时间 : </b> <span id="s_last_update_time"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!--底部部分-->
+        <footer th:replace="common/templates::common_footer"></footer>
+        <script th:src="${urls.getForLookupPath('/static/assets/js/bootstrap3-typeahead.min.js')}"></script>
+        <!--业务js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/js/bus/institution/institution_score_view.js')}"></script>
+    </div>
+</div>
+</body>
+</html>

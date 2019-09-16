@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="common_head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>九课数科-机构风控管理</title>
+    <!--Favicon -->
+    <link rel="icon" th:href="${urls.getForLookupPath('/static/favicon.ico')}" type="image/x-icon"/>
+    <!--Bootstrap.min css-->
+    <link rel="stylesheet" th:href="${urls.getForLookupPath('/static/assets/plugins/bootstrap/css/bootstrap.min.css')}">
+    <!--Icons css-->
+    <link rel="stylesheet" th:href="${urls.getForLookupPath('/static/assets/css/icons.css')}">
+    <!--mCustomScrollbar css-->
+    <link rel="stylesheet" th:href="${urls.getForLookupPath('/static/assets/plugins/scroll-bar/jquery.mCustomScrollbar.css')}">
+    <!--Sidemenu css-->
+    <link rel="stylesheet" th:href="${urls.getForLookupPath('/static/assets/plugins/toggle-menu/sidemenu.css')}">
+    <!--Chartist css-->
+    <link rel="stylesheet" th:href="${urls.getForLookupPath('/static/assets/plugins/chartist/chartist.css')}">
+    <link rel="stylesheet" th:href="${urls.getForLookupPath('/static/assets/plugins/chartist/chartist-plugin-tooltip.css')}">
+    <!--Full calendar css-->
+    <link rel="stylesheet" th:href="${urls.getForLookupPath('/static/assets/plugins/fullcalendar/stylesheet1.css')}">
+    <!--morris css-->
+    <link rel="stylesheet" th:href="${urls.getForLookupPath('/static/assets/plugins/morris/morris.css')}">
+    <!--DataTables css-->
+    <link rel="stylesheet" th:href="${urls.getForLookupPath('/static/assets/plugins/Datatable/css/dataTables.bootstrap4.css')}">
+
+    <!--Toastr css-->
+    <link rel="stylesheet" th:href="${urls.getForLookupPath('/static/assets/plugins/toastr/build/toastr.css')}">
+    <link rel="stylesheet" th:href="${urls.getForLookupPath('/static/assets/plugins/toaster/garessi-notif.css')}">
+
+    <!--iCheck css-->
+    <link rel="stylesheet" th:href="${urls.getForLookupPath('/static/assets/plugins/iCheck/all.css')}">
+
+    <!--Style css-->
+    <link rel="stylesheet" th:href="${urls.getForLookupPath('/static/assets/css/style.css')}">
+
+</head>
+<body>
+    <!--顶部和左侧导航-->
+    <div th:fragment="common_top_nav">
+        <nav class="navbar navbar-expand-lg main-navbar">
+            <!--logo-->
+            <a class="header-brand" href="/index">
+                <img src="/static/assets/img/brand/logo.png" class="header-brand-img" alt="九课数科 logo">
+            </a>
+            <!--顶部左侧-->
+            <form class="form-inline mr-auto">
+                <ul class="navbar-nav mr-3">
+                    <li><a href="javascript:void(0);" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="ion ion-navicon-round"></i></a></li>
+                </ul>
+            </form>
+            <!--顶部右侧-->
+            <ul class="navbar-nav navbar-right">
+                <li class="dropdown dropdown-list-toggle">
+                    <a href="javascript:void(0);" class="nav-link nav-link-lg full-screen-link">
+                        <i class="ion-arrow-expand"  id="fullscreen-button"></i>
+                    </a>
+                </li>
+                <li class="dropdown"><a href="javascript:void(0);" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
+                    <img src="/static/assets/img/avatar/avatar-1.jpg" alt="profile-user" class="rounded-circle w-32">
+                    <div class="d-sm-none d-lg-inline-block" th:text="${session.SESSION_USER_REAL_NAME}"></div></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="javascript:void(0);" class="dropdown-item has-icon">
+                            <i class="ion ion-gear-a"></i> 修改密码
+                        </a>
+                        <a href="/logout" class="dropdown-item has-icon">
+                            <i class="ion-ios-redo"></i> 退出
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <aside class="app-sidebar">
+            <div class="app-sidebar__user">
+                <div class="dropdown">
+                    <a class="nav-link pl-2 pr-2 leading-none d-flex" data-toggle="dropdown" href="javascript:void(0);">
+                        <img alt="image" src="/static/assets/img/avatar/avatar-1.jpg" class=" avatar-md rounded-circle">
+                        <span class="ml-2 d-lg-block">
+                            <span class="text-white app-sidebar__user-name mt-5" th:text="${session.SESSION_USER_REAL_NAME}">姓名（动态获取）</span><br>
+                            <span class="text-muted app-sidebar__user-name text-sm" th:text="${session.SESSION_USER_ROLE_NAME}">角色（动态获取）</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <ul class="side-menu">
+                <li class="slide">
+                    <a class="side-menu__item"  data-toggle="slide" href="javascript:void(0);">
+                        <i class="side-menu__icon fa fa-desktop"></i>
+                        <span class="side-menu__label">机构评分管理</span>
+                        <i class="angle fa fa-angle-right"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li><a class="slide-item"  href="/institution_score"><span>机构评分在库表</span></a></li>
+                        <li><a class="slide-item" href="/institution_score_view"><span>查询机构评分表</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+    </div>
+
+    <footer th:fragment="common_footer" class="main-footer">
+        <div class="text-center">
+            Copyright &copy;北京中融博远信息科技有限公司 2019 九课数科
+        </div>
+        <!--Jquery.min js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/js/jquery.min.js')}"></script>
+        <!--popper js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/js/popper.js')}"></script>
+        <!--Tooltip js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/js/tooltip.js')}"></script>
+        <!--Bootstrap.min js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/plugins/bootstrap/js/bootstrap.min.js')}"></script>
+        <!--Jquery.nicescroll.min js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/plugins/nicescroll/jquery.nicescroll.min.js')}"></script>
+        <!--Scroll-up-bar.min js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/plugins/scroll-up-bar/dist/scroll-up-bar.min.js')}"></script>
+        <!--Sidemenu js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/plugins/toggle-menu/sidemenu.js')}"></script>
+        <!--mCustomScrollbar js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js')}"></script>
+        <!-- ECharts -->
+        <!--<script th:src="${urls.getForLookupPath('/static/assets/plugins/echarts/dist/echarts.js')}"></script>-->
+        <!--Min Calendar -->
+        <script th:src="${urls.getForLookupPath('/static/assets/plugins/fullcalendar/calendar.min.js')}"></script>
+        <script th:src="${urls.getForLookupPath('/static/assets/plugins/fullcalendar/custom_calendar.js')}"></script>
+        <!--Morris js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/plugins/morris/morris.min.js')}"></script>
+        <script th:src="${urls.getForLookupPath('/static/assets/plugins/morris/raphael.min.js')}"></script>
+
+        <!--iCheck js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/plugins/iCheck/icheck.min.js')}"></script>
+
+        <!--Scripts js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/js/scripts.js')}"></script>
+        <!--Dashboard js-->
+      <!--  <script th:src="${urls.getForLookupPath('/static/assets/js/dashboard.js')}"></script>
+        <script th:src="${urls.getForLookupPath('/static/assets/js/apexcharts.js')}"></script>-->
+
+        <!--DataTables js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/plugins/Datatable/js/jquery.dataTables.js')}"></script>
+        <script th:src="${urls.getForLookupPath('/static/assets/plugins/Datatable/js/dataTables.bootstrap4.js')}"></script>
+
+        <!--Toastr js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/plugins/toastr/build/toastr.min.js')}"></script>
+        <script th:src="${urls.getForLookupPath('/static/assets/plugins/toaster/garessi-notif.js')}"></script>
+
+        <script th:src="${urls.getForLookupPath('/static/assets/js/jquery.serializejson.min.js')}"></script>
+
+        <script th:inline="javascript">
+            var ajaxReqPre = '[(${ajaxReqPre})]';
+        </script>
+        <!--拦截ajax请求-->
+        <script th:src="${urls.getForLookupPath('/static/assets/js/ajaxhook.min.js')}"></script>
+
+    </footer>
+</body>
+</html>

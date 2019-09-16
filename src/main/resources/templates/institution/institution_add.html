@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/templates::common_head">
+</head>
+<body class="app ">
+<div id="spinner"></div>
+<div id="app">
+    <div class="main-wrapper">
+        <!--公共导航和顶部部分-->
+        <div th:replace="common/templates::common_top_nav"></div>
+        <!--页面内容-->
+        <div class="app-content">
+            <section class="section">
+                <!--页面导航部分-->
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="/index" class="text-muted">首页</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">机构评分管理</li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <a href="/institution_score" class="text-muted">机构评分在库表</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">新增机构</li>
+                </ol>
+                <!--具体内容-->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="float-right">
+                                    <div class="input-group">
+                                        <a href="javascript:void(0);" data-toggle="modal"
+                                           onclick="saveGroupScoreSource();" class="dbtn btn-info m-t-5 m-l-5">确认</a>
+                                        <a href="javascript:void(0);" onclick="refreshAddGroupScoreSource();"
+                                           class="dbtn btn-info m-t-5 m-l-5">刷新</a>
+                                        <a href="/institution_score" class="dbtn btn-info m-t-5 m-l-5">返回</a>
+                                    </div>
+                                </div>
+                                <h4>机构评分</h4>
+                            </div>
+                            <div class="card-body">
+                                <form id="radios_add_form">
+                                    <!--评分来源表ID-->
+                                    <input type="hidden" name="id">
+                                    <!--评分表ID-->
+                                    <input type="hidden" name="group_score_id">
+                                    <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="group-basic-info" data-toggle="tab"
+                                               href="#basic-info" role="tab" aria-controls="basic-info"
+                                               aria-selected="true">基本资料</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="group-platform-data" data-toggle="tab"
+                                               href="#platform-data" role="tab" aria-controls="platform-data"
+                                               aria-selected="false">平台数据</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="group-business-type" data-toggle="tab"
+                                               href="#business-type" role="tab" aria-controls="business-type"
+                                               aria-selected="false">业务类型评估</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content tab-bordered" id="myTab2Content">
+                                        <div class="tab-pane fade show active" id="basic-info" role="tabpanel"
+                                             aria-labelledby="group-basic-info">
+                                            <div class="row">
+                                                <div class="col-md-12 col-12 col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h6>机构资料</h6>
+                                                        </div>
+                                                        <div class="card-body" id="groupInfoRadios">
+                                                            <div class="form-group row">
+                                                                <label class="col-md-1-5 col-form-label">机构名称</label>
+                                                                <div class="col-md-8-5 input-group">
+                                                                    <input type="text" class="form-control" value=""
+                                                                           name="group_name" maxlength="64" onblur="checkGroupName()"/>
+                                                                    <div id="wrong_btn" class="input-group-append close_clear_btn">
+                                                                        <span class="input-group-text">
+                                                                            <i class="ion ion-close-round"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                    <div id="right_btn" class="input-group-append close_clear_btn">
+                                                                        <span class="input-group-text">
+                                                                            <i class="ion ion-checkmark-round"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-12 col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h6>机构三方核查</h6>
+                                                        </div>
+                                                        <div class="card-body" id="groupThirdCheckRadios">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-12 col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h6>机构网络查询</h6>
+                                                        </div>
+                                                        <div class="card-body" id="groupNetworkCheckRadios">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--平台数据-->
+                                        <div class="tab-pane fade" id="platform-data" role="tabpanel"
+                                             aria-labelledby="group-platform-data">
+                                            <div class="row">
+                                                <div class="col-md-12 col-12 col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h6>历史数据分析</h6>
+                                                        </div>
+                                                        <div class="card-body" id="groupHistoryDataRadios">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--业务类型评估-->
+                                        <div class="tab-pane fade" id="business-type" role="tabpanel"
+                                             aria-labelledby="group-business-type">
+                                            <div class="row">
+                                                <div class="col-md-12 col-12 col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h6>科目占比</h6>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="form-group row">
+                                                                <label class="col-md-0-8 col-form-label">IT科目占比</label>
+                                                                <div class="col-md-2">
+                                                                    <input class="form-control" type="number"
+                                                                           name="it_proportion" min="0" max="1"
+                                                                           placeholder="0~1之间"/>
+                                                                </div>
+
+                                                                <label class="col-md-0-9 col-form-label">证书科目占比</label>
+                                                                <div class="col-md-2">
+                                                                    <input class="form-control" type="number"
+                                                                           name="certificate_proportion" min="0" max="1"
+                                                                           placeholder="0~1之间"/>
+                                                                </div>
+
+                                                                <label class="col-md-0-9 col-form-label">学历科目占比</label>
+                                                                <div class="col-md-2">
+                                                                    <input class="form-control" type="number"
+                                                                           name="education_proportion" min="0" max="1"
+                                                                           placeholder="0~1之间"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-12 col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h6>IT（校招）</h6>
+                                                        </div>
+                                                        <div class="card-body" id="groupItSchoolRadios">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-12 col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h6>IT（社招）</h6>
+                                                        </div>
+                                                        <div class="card-body" id="groupItSocietyRadios">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-12 col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h6>证书</h6>
+                                                        </div>
+                                                        <div class="card-body" id="groupCertificateRadios">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-12 col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h6>学历（网教）</h6>
+                                                        </div>
+                                                        <div class="card-body" id="groupEducationNetworkRadios">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-12 col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h6>学历（自考）</h6>
+                                                        </div>
+                                                        <div class="card-body" id="groupEducationSelfTaughtRadios">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-12 col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h6>学历（成考）</h6>
+                                                        </div>
+                                                        <div class="card-body" id="groupEducationAdultRadios">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-12 col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h6>学历（电大）</h6>
+                                                        </div>
+                                                        <div class="card-body" id="groupEducationOpenRadios">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-12 col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h6>K12</h6>
+                                                        </div>
+                                                        <div class="card-body" id="groupK12Radios">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!--底部部分-->
+        <footer th:replace="common/templates::common_footer"></footer>
+        <input type="hidden" id="view_add_edit_flag" value="add">
+        <!--业务js-->
+        <script th:src="${urls.getForLookupPath('/static/assets/js/bus/institution/institution_opt.js')}"></script>
+    </div>
+</div>
+<!-- 系统评分结果 -->
+<div class="modal fade" id="sys_score_result_div" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="example-Modal3">系统评分结果</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row modal-header">
+                    <div class="col-md-8">
+                        <label for="sys_score_first" class="form-control-label">系统评分：</label>
+                        <input type="text" readonly="readonly" class="form-control" id="sys_score_first">
+                    </div>
+                    <div class="col-md-8">
+                        <label for="weight_score" class="form-control-label">权重比分值（分）：</label>
+                        <input type="number" min="1" max="100" class="form-control" id="weight_score">
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" onclick="calc_score_level()" class="btn btn-primary">确定</button>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-8">
+                        <label for="synthetical_score" class="form-control-label">系统综合评分（分）：</label>
+                        <input type="text" class="form-control" id="synthetical_score" readonly="readonly" />
+                    </div>
+                    <div class="col-md-8">
+                        <label for="group_level" class="form-control-label">等级</label>
+                        <input type="text" class="form-control" id="group_level" readonly="readonly" />
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button"  onclick="updateGroupScore()" class="btn btn-success">完成</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <p class="mb-0">
+                    评分规则：
+                    <br>规则一：每科目对应的类别只能选择一项，若同时存在，则取分值较高者。
+                    <br>规则二：总科目业务类型评估中，IT、证书、学历、K12四大类测评分值相同，若机构存在两类及两类以上的情况，则需要判断该机构在各类中的百分占比（如：学历占80%、证书占20%），各类测评分值乘以百分比相加之和即为最后机构得分。若出现非整数，则按四舍五入取整数值。
+                    <br>规则三：权重比加持范围：仅限于业务类型评估，且机构同时存在两种或两种以上科目类型的方可使用。权重比加持范围为10%至-10%之间。（如：总科目业务类型评估总分值为50分，则权重分数为：5分至-5分之间）
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
